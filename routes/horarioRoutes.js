@@ -49,4 +49,27 @@ rutas.delete('/eliminar/:id', async (req, res) =>{
         res.status(400).json({mensaje: error.message});
     }
 });
+
+// - Listar todos los Horarios por nombre docente
+rutas.get('/horario-docente/:id', async (req, res) =>{
+    try {
+        console.log(req.params.id);
+        const horarioDocente = await HorarioModel.find({ docente: req.params.id});
+        res.json(horarioDocente);
+    }
+    catch(error){
+        res.status(404).json({mensaje: error.message});
+    }
+});
+// - Listar todos los Horarios por nombre que empiece en una lera especifica 
+rutas.get('/dia/:nombre', async (req, res) =>{
+    try {
+        console.log(req.params.nombre);
+        const horario = await HorarioModel.find({dia: req.params.nombre });
+        res.json(horario);
+    }
+    catch(error){
+        res.status(404).json({mensaje: error.message});
+    }
+});
 module.exports = rutas;
